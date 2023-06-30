@@ -1,8 +1,7 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {withOnyx} from 'react-native-onyx';
 import moment from 'moment';
-import lodashGet from 'lodash/get';
 import ScreenWrapper from '../../../../components/ScreenWrapper';
 import HeaderWithBackButton from '../../../../components/HeaderWithBackButton';
 import withLocalize, {withLocalizePropTypes} from '../../../../components/withLocalize';
@@ -11,6 +10,7 @@ import ONYXKEYS from '../../../../ONYXKEYS';
 import * as ValidationUtils from '../../../../libs/ValidationUtils';
 import styles from '../../../../styles/styles';
 import * as PersonalDetails from '../../../../libs/actions/PersonalDetails';
+import * as SelectYearAction from '../../../../libs/actions/SelectYearAction';
 import compose from '../../../../libs/compose';
 import NewDatePicker from '../../../../components/NewDatePicker';
 import CONST from '../../../../CONST';
@@ -34,15 +34,20 @@ const defaultProps = {
     },
 };
 
-function DateOfBirthPage({translate, route, privatePersonalDetails}) {
+function DateOfBirthPage({translate, privatePersonalDetails}) {
     /**
      * The year should be set on the route when navigating back from the year picker
      * This lets us pass the selected year without having to overwrite the value in Onyx
      */
     const dobYear = String(moment(privatePersonalDetails.dob).year());
-    const selectedYear = lodashGet(route.params, 'year', dobYear);
+    const [selectedYear, setSelectedYear] = useState(dobYear);
     const minDate = moment().subtract(CONST.DATE_BIRTH.MAX_AGE, 'Y').toDate();
     const maxDate = moment().subtract(CONST.DATE_BIRTH.MIN_AGE, 'Y').toDate();
+
+    useEffect(() => {
+        const onSelectYear = (year) => setSelectedYear(year);
+        SelectYearAction.attachCallback(onSelectYear);
+    }, [])
 
     /**
      * @param {Object} values

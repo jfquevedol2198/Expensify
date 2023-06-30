@@ -8,6 +8,7 @@ import withLocalize, {withLocalizePropTypes} from '../components/withLocalize';
 import ROUTES from '../ROUTES';
 import styles from '../styles/styles';
 import Navigation from '../libs/Navigation/Navigation';
+import * as SelectYearAction from '../libs/actions/SelectYearAction';
 import OptionsSelector from '../components/OptionsSelector';
 import themeColors from '../styles/themes/default';
 import * as Expensicons from '../components/Icon/Expensicons';
@@ -64,16 +65,8 @@ class YearPickerPage extends React.Component {
      * @param {String} selectedYear
      */
     updateSelectedYear(selectedYear) {
-        // We have to navigate using concatenation here as it is not possible to pass a function as a route param
-        const routes = lodashGet(this.props.navigation.getState(), 'routes', []);
-        const dateOfBirthRoute = _.find(routes, (route) => route.name === 'Settings_PersonalDetails_DateOfBirth');
-
-        if (dateOfBirthRoute) {
-            Navigation.setParams({year: selectedYear.toString()}, lodashGet(dateOfBirthRoute, 'key', ''));
-            Navigation.goBack();
-        } else {
-            Navigation.goBack(`${ROUTES.SETTINGS_PERSONAL_DETAILS_DATE_OF_BIRTH}?year=${selectedYear}`);
-        }
+        SelectYearAction.emitCallback(selectedYear);
+        Navigation.goBack();
     }
 
     /**
