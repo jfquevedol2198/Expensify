@@ -46,7 +46,7 @@ function DateOfBirthPage({translate, privatePersonalDetails}) {
 
     useEffect(() => {
         const onSelectYear = (year) => setSelectedYear(year);
-        SelectYearAction.attachCallback(onSelectYear);
+        SelectYearAction.set(onSelectYear);
     }, [])
 
     /**

@@ -65,7 +65,7 @@ class YearPickerPage extends React.Component {
      * @param {String} selectedYear
      */
     updateSelectedYear(selectedYear) {
-        SelectYearAction.emitCallback(selectedYear);
+        SelectYearAction.update(selectedYear);
         Navigation.goBack();
     }
 

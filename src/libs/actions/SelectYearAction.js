@@ -2,13 +2,13 @@ import React from 'react';
 
 const onSelectCurrencyRef = React.createRef();
 
-function attachCallback(onSelectCurrency) {
+function set(onSelectCurrency) {
   onSelectCurrencyRef.current = onSelectCurrency;
 }
 
-function emitCallback(currency) {
+function update(currency) {
   if (!onSelectCurrencyRef.current) return;
   onSelectCurrencyRef.current(currency);
 }
 
-export {attachCallback, emitCallback};
+export {set, update};
