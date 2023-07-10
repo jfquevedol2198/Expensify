@@ -41,12 +41,14 @@ function DateOfBirthPage({translate, privatePersonalDetails}) {
      */
     const dobYear = String(moment(privatePersonalDetails.dob).year());
     const [selectedYear, setSelectedYear] = useState(dobYear);
+    const [selectedYear1, setSelectedYear1] = useState(dobYear);
     const minDate = moment().subtract(CONST.DATE_BIRTH.MAX_AGE, 'Y').toDate();
     const maxDate = moment().subtract(CONST.DATE_BIRTH.MIN_AGE, 'Y').toDate();
 
     useEffect(() => {
         const onSelectYear = (inputId, year) => {
-            setSelectedYear(year.toString());
+            if (inputId === 'dob') setSelectedYear(year.toString());
+            if (inputId === 'dob1') setSelectedYear1(year.toString());
         }
         SelectYearAction.set(onSelectYear);
     }, [])
@@ -93,6 +95,14 @@ function DateOfBirthPage({translate, privatePersonalDetails}) {
                     minDate={minDate}
                     maxDate={maxDate}
                     selectedYear={selectedYear}
+                />
+                <NewDatePicker
+                    inputID="dob1"
+                    label={translate('common.date')}
+                    defaultValue={privatePersonalDetails.dob || ''}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    selectedYear={selectedYear1}
                 />
             </Form>
         </ScreenWrapper>
