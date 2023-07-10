@@ -77,6 +77,7 @@ class NewDatePicker extends React.Component {
                 </View>
                 <View style={[styles.datePickerPopover, styles.border]}>
                     <CalendarPicker
+                        id={this.props.inputID}
                         minDate={this.props.minDate}
                         maxDate={this.props.maxDate}
                         value={this.state.selectedDate}

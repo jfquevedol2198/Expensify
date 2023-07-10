@@ -1,14 +1,19 @@
 import React from 'react';
 
-const onSelectCurrencyRef = React.createRef();
+const onSelectYearRef = React.createRef();
+const inputIdRef = React.createRef();
 
-function set(onSelectCurrency) {
-  onSelectCurrencyRef.current = onSelectCurrency;
+function set(onSelectYear) {
+  onSelectYearRef.current = onSelectYear;
 }
 
-function update(currency) {
-  if (!onSelectCurrencyRef.current) return;
-  onSelectCurrencyRef.current(currency);
+function emit(year) {
+  if (!onSelectYearRef.current) return;
+  onSelectYearRef.current(inputIdRef.current, year);
 }
 
-export {set, update};
+function updateInputID(inputID) {
+  inputIdRef.current = inputID;
+}
+
+export {set, emit, updateInputID};

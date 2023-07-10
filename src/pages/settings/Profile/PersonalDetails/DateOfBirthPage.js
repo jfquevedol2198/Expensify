@@ -45,7 +45,9 @@ function DateOfBirthPage({translate, privatePersonalDetails}) {
     const maxDate = moment().subtract(CONST.DATE_BIRTH.MIN_AGE, 'Y').toDate();
 
     useEffect(() => {
-        const onSelectYear = (year) => setSelectedYear(year);
+        const onSelectYear = (inputId, year) => {
+            setSelectedYear(year.toString());
+        }
         SelectYearAction.set(onSelectYear);
     }, [])
 

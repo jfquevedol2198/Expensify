@@ -16,6 +16,7 @@ import getButtonState from '../../libs/getButtonState';
 import * as StyleUtils from '../../styles/StyleUtils';
 import PressableWithFeedback from '../Pressable/PressableWithFeedback';
 import PressableWithoutFeedback from '../Pressable/PressableWithoutFeedback';
+import * as SelectYearAction from '../../libs/actions/SelectYearAction';
 
 class CalendarPicker extends React.PureComponent {
     constructor(props) {
@@ -88,6 +89,7 @@ class CalendarPicker extends React.PureComponent {
      * based on the props, the current year based on the state, and the active route.
      */
     onYearPickerPressed() {
+        SelectYearAction.updateInputID(this.props.id);
         const minYear = moment(this.props.minDate).year();
         const maxYear = moment(this.props.maxDate).year();
         const currentYear = parseInt(this.state.selectedYear, 10);

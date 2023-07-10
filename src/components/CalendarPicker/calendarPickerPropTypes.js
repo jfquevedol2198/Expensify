@@ -3,6 +3,9 @@ import moment from 'moment';
 import CONST from '../../CONST';
 
 const propTypes = {
+    /** A string to identify calendar picker */
+    id: PropTypes.string,
+
     /** An initial value of date string */
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 
@@ -29,6 +32,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: null,
     value: new Date(),
     minDate: moment().year(CONST.CALENDAR_PICKER.MIN_YEAR).toDate(),
     maxDate: moment().year(CONST.CALENDAR_PICKER.MAX_YEAR).toDate(),
